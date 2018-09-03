@@ -1,0 +1,34 @@
+I"i(function() {
+  this.initMap = function() {
+    var center, infowindow, map;
+    center = {
+      lat: 0,
+      lng: 0
+    };
+    map = new google.maps.Map($('#map')[0], {
+      zoom: 2,
+      center: center
+    });
+    infowindow = new google.maps.InfoWindow;
+    return $.getJSON('/tickets.json', function(jsonData) {
+      return $.each(jsonData, function(key, data) {
+        var latLng, marker;
+        latLng = new google.maps.LatLng(data.lat, data.lng);
+        marker = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          title: data.title
+        });
+        return google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setOptions({
+            content: data.content,
+            maxWidth: 300
+          });
+          return infowindow.open(map, marker);
+        });
+      });
+    });
+  };
+
+}).call(this);
+:ET
