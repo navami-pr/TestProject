@@ -1,7 +1,0 @@
-development:
- adapter: postgresql
- encoding: unicode
- host: localhost
- database: ticketing_system
- username: postgres
- password: root
